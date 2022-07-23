@@ -1,0 +1,116 @@
+<div [hidden]="!registered" class="shadow alert alert-{{alertType}}">
+    <h4>{{message}}</h4>
+</div>
+<nav class="container-fluid shadow">
+    <ul class="nav my-2 py-1 px-3">
+        <li class="nav-item">
+            <h2>Registration</h2>
+        </li>
+    </ul>
+</nav>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="container col-10 col-md-8 col-lg-6 col-xl-4">
+        <div class="row">
+            <h5 class="text-center">Register with your email and password:</h5>
+        </div>
+
+        <div class="row">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control shadow"
+                    [class.show-error]="submitted && registerFormControl.email.errors?.required"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Email *"
+                    formControlName="email">
+            </div>
+            <div>
+                <div [hidden]="!submitted || !registerFormControl.email.errors?.required" class="text-danger">
+                    Email is
+                    required</div>
+                <div [hidden]="registerFormControl.email.untouched || !registerFormControl.email.errors"
+                    class="text-danger">Email should be valid</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control shadow"
+                        [class.show-error]="submitted && registerFormControl.firstName.invalid"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                        placeholder="First name *" formControlName="firstName">
+                </div>
+                <div>
+                    <div [hidden]="!submitted || !registerFormControl.firstName.errors?.required" class="text-danger">
+                        First name is
+                        required</div>
+                    <div [hidden]="registerFormControl.firstName.untouched || !registerFormControl.firstName.errors"
+                        class="text-danger">First name should be at least 3 characters long</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control shadow"
+                        [class.show-error]="submitted && registerFormControl.lastName.invalid"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                        placeholder="Last name *" formControlName="lastName">
+                </div>
+                <div>
+                    <div [hidden]="!submitted || !registerFormControl.lastName.errors?.required" class="text-danger">
+                        Last name is
+                        required</div>
+                    <div [hidden]="registerFormControl.lastName.untouched || !registerFormControl.lastName.errors"
+                        class="text-danger">Last name should be at least 3 characters long</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group input-group-lg">
+                    <input type="password" class="form-control shadow"
+                        [class.show-error]="submitted && registerFormControl.password.invalid"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                        placeholder="Password *" formControlName="password">
+                </div>
+                <div>
+                    <div [hidden]="!submitted || !registerFormControl.password.errors?.required" class="text-danger">
+                        Password is required</div>
+                    <div [hidden]="registerFormControl.password.untouched || !registerFormControl.password.errors"
+                        class="text-danger">Password should be at least 8 characters long</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group input-group-lg">
+                    <input type="password" class="form-control shadow"
+                        [class.show-error]="submitted && registerFormControl.confirmPassword.invalid"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                        placeholder="Confirm password *" formControlName="confirmPassword">
+                </div>
+                <div>
+                    <div [hidden]="!submitted || !registerFormControl.confirmPassword.errors?.required"
+                        class="text-danger">Confirm
+                        Password is required
+                    </div>
+                    <div [hidden]="registerFormControl.confirmPassword.untouched || !registerFormControl.confirmPassword.errors?.minlength"
+                        class="text-danger">Confirm Password should be at least 8 characters long</div>
+                    <div [hidden]="registerFormControl.confirmPassword.untouched || !registerFormControl.confirmPassword.errors?.mustMatch"
+                        class="text-danger">Passwords does not match</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 pt-4">
+            <div class="text-center">
+                <button class="btn btn-dark shadow">REGISTER</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="offset-9">
+                <a [routerLink]="['/login']">Have an account already?</a>
+            </div>
+        </div>
+    </div>
+</form>

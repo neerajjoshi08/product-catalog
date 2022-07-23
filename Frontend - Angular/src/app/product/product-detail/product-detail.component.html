@@ -1,0 +1,42 @@
+<nav class="container-fluid navbar-light bg-light shadow">
+  <div class="d-flex justify-content-between">
+    <ul class="nav my-2 py-1 px-3">
+      <li class="nav-item">
+        <h2>Product Detail</h2>
+      </li>
+    </ul>
+    <div *ngIf="activeUser" class="d-flex align-items-center">
+      <h5>Welcome!</h5>
+      <button class="btn btn-danger h-75 mx-2" type="submit" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container mx-auto my-5 text-center">
+  <div class="container card shadow" style="width: 35rem;">
+    <img *ngIf="product" src="data:image/png;base64,{{product.image}}" class="card-img-top mx-auto my-4 d-block rounded shadow"
+      style="width: 10rem; height: 10rem;" alt="{{product?.name}}">
+    <div class="card-body">
+      <div class="mb-3">
+        <h6 class="d-inline"><i class="fa fa-hashtag pe-1"></i>{{product?.code}}</h6>
+        <h5 class="d-inline ms-2 ps-1">{{product?.name}}</h5>
+      </div>
+      <p class="card-text text-justify"><i class="fa fa-clipboard me-2"></i>{{product?.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{product?.brand}}</li>
+      <li class="list-group-item"><i class="fa fa-money me-2"></i>{{product?.price | currency : 'INR'}}</li>
+    </ul>
+    <div class="card-body">
+      <div class="container input-group mb-3 w-50">
+        <input type="text" class="form-control shadow" placeholder="Enter pin code" aria-label="Username"
+          aria-describedby="basic-addon1" minlength="6" maxlength="6" [(ngModel)]="inputCode">
+        <button type="submit" class="btn btn-success shadow" (click)="onSubmit()">Submit</button>
+      </div>
+      <div *ngIf="submitPressed">
+        <p *ngIf="available">Available, can expect delivery tomorrow evening.</p>
+        <p *ngIf="!available">Not available</p>
+      </div>
+    </div>
+  </div>
+</div>

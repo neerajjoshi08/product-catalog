@@ -1,0 +1,73 @@
+<div [hidden]="!error" class="alert alert-{{alertType}}">
+    <h4>{{message}}</h4>
+</div>
+
+<nav class="container-fluid navbar-light bg-light shadow">
+    <div class="d-flex justify-content-between">
+        <ul class="nav my-2 py-1 px-3">
+            <li class="nav-item">
+                <h2>Product Search</h2>
+            </li>
+        </ul>
+        <div *ngIf="!activeUser" class="d-flex align-items-center">
+            <button class="btn btn-success h-75 mx-2 shadow" type="submit" (click)="signIn()">Sign In</button>
+            <button class="btn btn-primary h-75 mx-2 shadow" type="submit" (click)="signUp()">Sign Up</button>
+        </div>
+        <div *ngIf="activeUser" class="d-flex align-items-center">
+            <h5>Welcome!</h5>
+            <button class="btn btn-danger h-75 mx-2" type="submit" (click)="logout()">Logout</button>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container col-lg-4">
+        <div class="input-group input-group-lg mt-5">
+            <span class="input-group-text" id="inputGroup-sizing-default"><i class="fa fa-shopping-cart"></i></span>
+            <input type="text" class="form-control d-block" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default" placeholder="Search a product" [(ngModel)]="search">
+        </div>
+        <div class="container m-3 d-flex justify-content-evenly w-100">
+            <input type="checkbox" class="btn-check" id="name" autocomplete="off" (click)="toggleName()" checked>
+            <label class="btn btn-outline-secondary" for="name">Name</label>
+
+            <input type="checkbox" class="btn-check" id="code" autocomplete="off" (click)="toggleCode()">
+            <label class="btn btn-outline-secondary" for="code">Product Code</label>
+
+            <input type="checkbox" class="btn-check" id="brand" autocomplete="off" (click)="toggleBrand()">
+            <label class="btn btn-outline-secondary" for="brand">Brand</label>
+        </div>
+
+        <div *ngIf="activeUser">
+            <label for="customRange1" class="form-label">Filter by Price Range: {{priceVal}} </label>
+            <input type="range" class="form-range" id="customRange1" min="0" max="200000" step="10000"
+                [(ngModel)]="priceVal">
+        </div>
+
+    </div>
+</div>
+<!--  col-sm-4 col-lg-10 col-xl-3  -->
+<div class="container-fluid">
+    <div class="d-flex flex-wrap justify-content-center">
+        <div *ngFor="let product of products" class="m-4">
+            <div class="card border-secondary shadow" style="min-width: 20rem;">
+                <div class="card-header">
+                    <h6 class="d-inline"><i class="fa fa-hashtag pe-1"></i>{{product.code}}</h6>
+                    <h5 class="d-inline ms-2 ps-1">{{product.name}}</h5>
+                </div>
+                <div class="card-body text-secondary">
+                    <img class="card-img-top rounded shadow mx-auto px-auto rounded d-block"
+                        src="data:image/jpg;base64,{{product.image}}" style="width: 10rem; height: 10rem;"
+                        alt="{{product.name}}">
+                    <div class="my-3">
+                        <h5 class="card-title d-inline float-left">{{product.brand}}</h5>
+                        <h5 *ngIf="activeUser" class="card-title d-inline float-end"><i
+                                class="fa fa-money me-2"></i>{{product.price | currency:'INR'}}</h5>
+                    </div>
+                    <button *ngIf="activeUser" class="btn btn-outline-success float-end shadow"
+                        (click)="viewDetails(product.code)">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
